@@ -38,6 +38,8 @@ using NuGet.Protocol;
 using Spire.Xls;
 using Azure;
 using SpreadsheetGear.Charts;
+using System.Text.Json;
+using System.IO;
 //using Spire.Xls;
 //using OfficeOpenXml.Core.ExcelPackage;
 
@@ -53,9 +55,37 @@ namespace CallStatistic.Controllers
             _context = context;
         }
 
+        public static List<string> param = new List<string>();
+        public static string json = null;
+
+        public static string location = null;
+        public static string officeLocation = null;
+
+
         // GET: Calls
         public async Task<IActionResult> Index()
         {
+            //param.Add("excelFiles");
+            //param.Add("C:\\Program Files\\Microsoft Office\\root\\Office16");
+
+            //json = JsonSerializer.Serialize(param);
+
+            StreamReader reader = new StreamReader("params.json");
+
+            json = reader.ReadLine();
+
+            param = JsonSerializer.Deserialize<List<string>>(json);
+
+            officeLocation = param[1];
+            location = param[0];
+
+
+
+
+            //StreamWriter writer = new StreamWriter("params.json");
+            //writer.WriteLine(json);
+            //writer.Close();
+
             return _context.Calls != null ?
                         View(await _context.Calls.ToListAsync()) :
                         Problem("Entity set 'CallsContext.Calls'  is null.");
@@ -530,7 +560,7 @@ namespace CallStatistic.Controllers
 
                                 filesForDelete = file.Substring(0, file.IndexOf('.'));
 
-                                info.Arguments = "/C del /f \"" + filesForDelete + '*'+"\"";
+                                info.Arguments = "/C del /f \"" + filesForDelete + '*' + "\"";
                                 process.Start();
                                 process.WaitForExit();
                                 process.Close();
@@ -710,7 +740,7 @@ namespace CallStatistic.Controllers
                                         if (durationOf.Length > 1)
                                             durationMinutes = durationOf.Substring(0, durationOf.IndexOf(","));
                                         else durationMinutes = durationOf;
-                                        
+
                                         if (durationMinutes.Length < 2) durationMinutes = "0" + durationMinutes;
                                         durationOf = durationMinutes + ":" + durationSeconds;
 
