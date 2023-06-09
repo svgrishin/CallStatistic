@@ -1,0 +1,72 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<CallStatistic.Models.Calls>
+@using CallStatistic.Controllers;
+@using CallStatistic.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @*<a asp-action="Create">Create New</a>*@
+        <a asp-action="LoadCalls">Create New</a>
+    </p>
+    <form>
+        <button asp-action="LoadCalls">Add from files</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.dateOf)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fromPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.toPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.duration)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateOf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fromPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.toPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.duration)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>

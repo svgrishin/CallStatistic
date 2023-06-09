@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets"
+    },
+    "mssql1": {
+      "type": "mssql",
+      //"connectionId": "ConnectionStrings:Server=LRUSVTEST2::DB_TEST;Database=CALLS;Trusted_Connection=true;MultipleActiveResultSets=true;Encrypt=False",
+      "connectionId": "ConnectionStrings:Server=LAPTOP-HP\\SQLEXPRESS;Database=CALLS;Trusted_Connection=true;MultipleActiveResultSets=true;Encrypt=False;Integrated Security=SSPI",
+      "dynamicId": null
+    }
+  }
+}
